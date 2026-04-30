@@ -1,0 +1,42 @@
+# AtendentePro
+
+> Multi-agent customer-service orchestration framework — v0.21.0.
+> Public documentation and examples mirror of BeMonkAI/atendentepro.
+
+## Getting started
+
+- [README](README.md): overview and quickstart
+- [Setup guide](setup_passo_a_passo/README.md): step-by-step install & config
+
+## Examples by feature
+
+- [access filters](examples/access_filters/README.md)
+- [agent style](examples/agent_style/README.md)
+- [custom embeddings](examples/custom_embeddings/README.md)
+- [custom provider](examples/custom_provider/README.md)
+- [custom user context](examples/custom_user_context/README.md)
+- [dialect](examples/dialect/)
+- [history window](examples/history_window/README.md)
+- [memory user session](examples/memory_user_session/README.md)
+- [multi agents](examples/multi_agents/README.md)
+- [multi knowledge](examples/multi_knowledge/README.md)
+- [multi provider](examples/multi_provider/README.md)
+- [optim](examples/optim/)
+- [single reply](examples/single_reply/README.md)
+- [user loader](examples/user_loader/README.md)
+
+## Runner scripts
+
+- [litellm_config.yaml](run/litellm_config.yaml)
+- [run_claude.py](run/run_claude.py)
+- [run_cost_optimized.py](run/run_cost_optimized.py)
+- [run_deepseek.py](run/run_deepseek.py)
+- [run_gemini.py](run/run_gemini.py)
+- [run_hybrid_provider.py](run/run_hybrid_provider.py)
+- [run_multi_model.py](run/run_multi_model.py)
+- [run_multi_provider.py](run/run_multi_provider.py)
+- [run_standard.py](run/run_standard.py)
+
+## Full bundle
+
+- [llms-full.txt](llms-full.txt): all docs concatenated for LLM ingest
