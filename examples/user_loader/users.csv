@@ -1,0 +1,5 @@
+email,nome,telefone,role,plano,empresa
+joao@example.com,João Silva,11999998888,cliente,premium,Acme Corp
+maria@example.com,Maria Santos,11988887777,cliente,basic,Tech Solutions
+admin@example.com,Admin User,11977776666,admin,enterprise,Internal
+vendedor@example.com,Pedro Vendedor,11966665555,vendedor,premium,Sales Team
