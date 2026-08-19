@@ -1,0 +1,142 @@
+# =============================================================================
+# Exemplo: Configuração de Filtros de Acesso por Role/User
+# =============================================================================
+#
+# Este arquivo demonstra como configurar acesso baseado em:
+# - Roles (funções): admin, vendedor, cliente, gerente, etc.
+# - Users (usuários específicos): user_id individuais
+#
+# Suporta whitelist (allowed_*) e blacklist (denied_*)
+# =============================================================================
+
+# =============================================================================
+# FILTROS DE AGENTES
+# =============================================================================
+# Controla quais agentes estão disponíveis para cada role/user
+
+agent_filters:
+  # Knowledge Agent: apenas admin, vendedor e gerente podem acessar
+  knowledge:
+    allowed_roles:
+      - admin
+      - vendedor
+      - gerente
+  
+  # Escalation Agent: todos exceto clientes podem escalar
+  escalation:
+    denied_roles:
+      - cliente
+  
+  # Feedback Agent: apenas admin pode ver feedback
+  feedback:
+    allowed_roles:
+      - admin
+
+# =============================================================================
+# PROMPTS CONDICIONAIS
+# =============================================================================
+# Adiciona seções de prompt baseadas em role/user
+
+conditional_prompts:
+  # Seções condicionais para Knowledge Agent
+  knowledge:
+    # Seção para administradores
+    - content: |
+        
+        ## Informações Administrativas
+        Como administrador, você tem acesso a:
+        - Dados de vendas e comissões de todos os vendedores
+        - Relatórios financeiros detalhados
+        - Histórico completo de clientes
+        - Métricas de performance da equipe
+      filter:
+        allowed_roles:
+          - admin
+    
+    # Seção para vendedores
+    - content: |
+        
+        ## Capacidades de Vendedor
+        Como vendedor, você pode:
+        - Oferecer desconto máximo de 15%
+        - Parcelamento em até 12x sem juros
+        - Consultar seu próprio histórico de vendas
+        - Ver comissões pendentes e pagas
+      filter:
+        allowed_roles:
+          - vendedor
+    
+    # Seção para gerentes
+    - content: |
+        
+        ## Capacidades de Gerente
+        Como gerente, você pode:
+        - Aprovar descontos de até 30%
+        - Autorizar parcelamentos especiais
+        - Ver performance da equipe
+        - Aprovar pedidos acima de R$ 10.000
+      filter:
+        allowed_roles:
+          - gerente
+          - admin
+    
+    # Seção para clientes
+    - content: |
+        
+        ## Informações para Cliente
+        Você pode consultar:
+        - Catálogo de produtos disponíveis
+        - Preços e promoções ativas
+        - Status de seus pedidos
+        - Informações de entrega
+      filter:
+        allowed_roles:
+          - cliente
+
+  # Seções condicionais para Interview Agent
+  interview:
+    # Vendedores podem coletar mais dados
+    - content: |
+        
+        ## Coleta de Dados Avançada
+        Para cadastro completo, você pode solicitar:
+        - CNPJ/CPF para emissão de nota fiscal
+        - Dados bancários para análise de crédito
+        - Limite de crédito desejado
+      filter:
+        allowed_roles:
+          - vendedor
+          - gerente
+          - admin
+
+# =============================================================================
+# ACESSO A TOOLS
+# =============================================================================
+# Controla quais tools cada role pode usar
+# (tools precisam ser registradas no código)
+
+tool_access:
+  # Tool para consultar comissões
+  consultar_comissao:
+    allowed_roles:
+      - vendedor
+      - gerente
+      - admin
+  
+  # Tool para aprovar descontos especiais
+  aprovar_desconto:
+    allowed_roles:
+      - gerente
+      - admin
+  
+  # Tool para deletar cliente (perigosa!)
+  deletar_cliente:
+    allowed_roles:
+      - admin
+  
+  # Tool para exportar dados
+  exportar_dados:
+    allowed_roles:
+      - admin
+    allowed_users:
+      - user_analista_1  # Analista específico também pode
