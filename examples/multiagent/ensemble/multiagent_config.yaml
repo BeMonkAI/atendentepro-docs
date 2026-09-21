@@ -1,0 +1,37 @@
+# Example multiagent_config.yaml — parallel ensemble (3 personas + coordinator).
+#
+# Drop this file at ``client_templates/<your_client>/multiagent_config.yaml``
+# and call ``create_parallel_network(templates_root, client="<your_client>")``
+# to get a fully wired ``ParallelNetwork``.
+network_type: parallel
+fanout:
+  - persona_value
+  - persona_growth
+  - persona_macro
+coordinator: portfolio_manager
+
+# Per-agent timeout (seconds). One slow persona does not stall the batch.
+parallel_timeout_s: 30.0
+# Cap on simultaneously in-flight fanout agents.
+parallel_max_concurrency: 10
+# When false (default), any fanout failure aborts with ParallelFanoutError.
+parallel_partial_ok: false
+
+agents:
+  persona_value:
+    # Forced to false by the factory anyway — fanout agents are internal.
+    exposed_to_user: false
+    output_schema: client_resources.signals.PersonaSignal
+
+  persona_growth:
+    exposed_to_user: false
+    output_schema: client_resources.signals.PersonaSignal
+
+  persona_macro:
+    exposed_to_user: false
+    output_schema: client_resources.signals.PersonaSignal
+
+  portfolio_manager:
+    # Coordinator IS the user-facing voice; output_schema NOT required —
+    # its job is to produce a free-form string that merges the signals.
+    exposed_to_user: true
