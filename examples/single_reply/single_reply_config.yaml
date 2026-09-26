@@ -1,0 +1,51 @@
+# =============================================================================
+# Exemplo: Configuração de Single Reply Mode
+# =============================================================================
+# 
+# O Single Reply Mode faz com que o agente responda UMA vez e automaticamente
+# transfira de volta para o Triage.
+#
+# =============================================================================
+
+# Global: se true, TODOS os agentes respondem apenas uma vez
+global: false
+
+# =============================================================================
+# Configuração por agente (sobrescreve o global)
+# =============================================================================
+agents:
+  # Flow Agent - apresenta menu de opções
+  # Geralmente false porque pode precisar explicar as opções
+  flow: false
+  
+  # Interview Agent - coleta dados do usuário
+  # DEVE ser false para coletar todos os dados necessários
+  interview: false
+  
+  # Answer Agent - responde perguntas gerais
+  # true = responde e volta ao Triage para nova análise
+  answer: true
+  
+  # Knowledge Agent - consulta base de conhecimento
+  # true = responde FAQ e volta, ótimo para chatbots de alto volume
+  knowledge: true
+  
+  # Confirmation Agent - confirma ou nega algo
+  # true = confirma e volta imediatamente
+  confirmation: true
+  
+  # Usage Agent - explica como usar algo
+  # true = explica e volta ao Triage
+  usage: true
+  
+  # Escalation Agent - escala para humano
+  # true = registra pedido e volta (humano entrará em contato)
+  escalation: true
+  
+  # Feedback Agent - coleta feedback
+  # true = registra feedback e volta
+  feedback: true
+  
+  # Onboarding Agent - guia novo usuário
+  # DEVE ser false para completar o onboarding
+  onboarding: false
