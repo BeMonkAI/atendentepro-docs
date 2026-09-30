@@ -1,0 +1,22 @@
+# Example multiagent_config.yaml — manager + 2 specialists hierarchy.
+#
+# Drop this file at ``client_templates/<your_client>/multiagent_config.yaml``
+# and the network factory (``create_standard_network`` /
+# ``create_custom_network``) wires the metadata into ``network.agent_metadata``
+# and attaches a per-caller bound ``call_agent`` tool to the manager.
+agents:
+  manager:
+    # Manager keeps exposed_to_user=true (default) — it IS the user's
+    # entry point in this hierarchy. The Triage agent of the standard
+    # network handles the initial routing as usual; replace by your own
+    # orchestrator for a custom network.
+    can_call: ["valuation_specialist", "risk_specialist"]
+    builtin_tools: ["call_agent"]
+
+  valuation_specialist:
+    exposed_to_user: false  # internal: never receives user messages directly
+    output_schema: client_resources.signals.ValuationSignal
+
+  risk_specialist:
+    exposed_to_user: false
+    output_schema: client_resources.signals.RiskSignal
