@@ -1,0 +1,21 @@
+# Tenant guardrails with the typed-decision input layer (#517).
+# Copy to client_templates/<cliente>/guardrails_config.yaml.
+# The block is honoured only from the tenant's own file (never inherited
+# from standard/), and only when the deploy sets
+# ATENDENTEPRO_TYPED_INPUT_ALLOWED=1 and TYPESAFE_API_KEY.
+agent_scopes:
+  triage_agent:
+    about: |
+      Atendimento de uma rede de lojas de eletrônicos: horários e endereços
+      das lojas, status de pedidos, trocas, garantia e formas de pagamento.
+
+out_of_scope_message: >-
+  Posso ajudar com lojas, pedidos, trocas e garantia. Sobre outros
+  assuntos, não consigo ajudar por aqui.
+
+typed_input:
+  injection: true          # JEV decide prompt injection after the regex layers
+  scope: true              # JEV replaces the LLM scope validator
+  injection_threshold: 0.5 # block when score >= 0.5 (measured operating point)
+  scope_threshold: 0.25    # in scope when score >= 0.25 (measured on real traffic)
+  timeout_s: 3.0           # total budget; on timeout the current chain decides
