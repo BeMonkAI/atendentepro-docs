@@ -1,0 +1,171 @@
+# Configuração do Triage Agent para Multi-Knowledge
+# Define keywords para roteamento entre múltiplos Knowledge Agents
+
+agent_name: "Triage Agent"
+description: "Roteia para o Knowledge Agent mais apropriado"
+
+# Keywords organizadas por agente de destino
+keywords:
+  # =========================================================================
+  # KNOWLEDGE TÉCNICO - Documentação, manuais, especificações
+  # =========================================================================
+  knowledge_tecnico:
+    primary:
+      - manual
+      - documentação
+      - documentacao
+      - especificação
+      - especificacao
+      - técnico
+      - tecnico
+    secondary:
+      - instalação
+      - instalacao
+      - configuração
+      - configuracao
+      - setup
+      - deploy
+    technical:
+      - API
+      - SDK
+      - integração
+      - integracao
+      - webhook
+      - endpoint
+    troubleshooting:
+      - erro
+      - bug
+      - problema técnico
+      - não funciona
+      - nao funciona
+      - travou
+      - crashou
+
+  # =========================================================================
+  # KNOWLEDGE FAQ - Perguntas frequentes, tutoriais
+  # =========================================================================
+  knowledge_faq:
+    questions:
+      - como fazer
+      - como funciona
+      - como usar
+      - tutorial
+      - passo a passo
+    help:
+      - dúvida
+      - duvida
+      - pergunta
+      - ajuda
+      - socorro
+    tips:
+      - dica
+      - melhor forma
+      - recomendação
+      - recomendacao
+      - sugestão de uso
+    common:
+      - iniciante
+      - básico
+      - basico
+      - primeiro acesso
+      - começar
+      - comecar
+
+  # =========================================================================
+  # KNOWLEDGE POLÍTICAS - Termos, políticas, procedimentos
+  # =========================================================================
+  knowledge_politicas:
+    terms:
+      - termos
+      - política
+      - politica
+      - privacidade
+      - LGPD
+    refund:
+      - reembolso
+      - cancelamento
+      - cancelar
+      - devolução
+      - devolver
+      - estorno
+    contract:
+      - contrato
+      - SLA
+      - garantia
+      - prazo
+      - vigência
+    compliance:
+      - compliance
+      - regulamento
+      - regulamentação
+      - norma
+      - lei
+
+  # =========================================================================
+  # ESCALATION - Transferência para humano
+  # =========================================================================
+  escalation:
+    explicit:
+      - falar com humano
+      - falar com atendente
+      - pessoa real
+      - quero falar com alguém
+    frustration:
+      - não está ajudando
+      - não entendeu
+      - robô
+      - IA burra
+
+  # =========================================================================
+  # FEEDBACK - Sugestões, reclamações, elogios
+  # =========================================================================
+  feedback:
+    suggestions:
+      - sugestão
+      - sugestao
+      - ideia
+      - proposta
+    complaints:
+      - reclamação
+      - reclamacao
+      - insatisfeito
+      - ruim
+    praise:
+      - elogio
+      - parabéns
+      - excelente
+      - muito bom
+
+# Regras de prioridade (qual agent tem preferência em caso de ambiguidade)
+priority_order:
+  - knowledge_politicas  # Políticas têm prioridade (questões legais)
+  - knowledge_tecnico    # Técnico em segundo (precisão)
+  - knowledge_faq        # FAQ por último (catch-all para dúvidas)
+  - escalation
+  - feedback
+
+# Mensagem padrão quando não consegue rotear
+fallback_message: |
+  Não consegui identificar exatamente o que você precisa.
+  Você gostaria de:
+  1. Consultar documentação técnica
+  2. Ver perguntas frequentes
+  3. Saber sobre políticas e termos
+  4. Falar com um atendente
+
+# Instruções adicionais para o Triage
+instructions: |
+  Você é o agente de triagem para uma rede com MÚLTIPLOS Knowledge Agents.
+  
+  IMPORTANTE: Analise cuidadosamente a pergunta para rotear para o Knowledge 
+  Agent mais apropriado:
+  
+  - Knowledge Técnico: perguntas sobre instalação, configuração, APIs, erros
+  - Knowledge FAQ: dúvidas comuns, "como fazer", tutoriais básicos
+  - Knowledge Políticas: termos, reembolso, cancelamento, privacidade
+  
+  Se a pergunta puder se encaixar em mais de uma categoria, use a ordem de 
+  prioridade: Políticas > Técnico > FAQ
+  
+  NUNCA tente responder diretamente - SEMPRE transfira para o agente apropriado.
+
